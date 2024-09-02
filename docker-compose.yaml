@@ -10,6 +10,8 @@ services:
         working_dir: /var/www/
         volumes:
             - ./backend/laravel/:/var/www
+        ports:
+            - "8000:8000" # Servindo diretamente na porta 8000
         networks:
             - laravel
         environment:
@@ -19,18 +21,6 @@ services:
             DB_DATABASE: ${DB_DATABASE:-laravel}
             DB_USERNAME: ${DB_USERNAME:-username}
             DB_PASSWORD: ${DB_PASSWORD:-userpass}
-
-    # nginx
-    nginx:
-        image: nginx:alpine
-        restart: unless-stopped
-        ports:
-            - "8989:80"
-        volumes:
-            - ./backend/laravel/:/var/www
-            - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
-        networks:
-            - laravel
 
     # db postgresql
     db:
@@ -72,7 +62,7 @@ services:
         networks:
             - laravel
         environment:
-            - VUE_APP_BACKEND_URL=http://localhost:8989
+            - VUE_APP_BACKEND_URL=http://localhost:8000 # Apontando para o backend no Laravel
 
 networks:
     laravel:

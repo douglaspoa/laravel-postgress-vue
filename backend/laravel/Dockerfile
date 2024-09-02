@@ -36,3 +36,9 @@ WORKDIR /var/www
 # COPY docker/php/custom.ini /usr/local/etc/php/conf.d/custom.ini
 
 USER $user
+
+# Expõe a porta 8000
+EXPOSE 8000
+
+# Comando para iniciar o servidor Laravel
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
