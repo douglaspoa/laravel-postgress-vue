@@ -1,0 +1,79 @@
+version: "3.7"
+
+services:
+    # Backend Laravel
+    app:
+        build:
+            context: ./backend/laravel
+            dockerfile: Dockerfile
+        restart: unless-stopped
+        working_dir: /var/www/
+        volumes:
+            - ./backend/laravel/:/var/www
+        networks:
+            - laravel
+        environment:
+            DB_CONNECTION: pgsql
+            DB_HOST: db
+            DB_PORT: 5432
+            DB_DATABASE: ${DB_DATABASE:-laravel}
+            DB_USERNAME: ${DB_USERNAME:-username}
+            DB_PASSWORD: ${DB_PASSWORD:-userpass}
+
+    # nginx
+    nginx:
+        image: nginx:alpine
+        restart: unless-stopped
+        ports:
+            - "8989:80"
+        volumes:
+            - ./backend/laravel/:/var/www
+            - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+        networks:
+            - laravel
+
+    # db postgresql
+    db:
+        image: postgres:14
+        restart: unless-stopped
+        environment:
+            POSTGRES_DB: ${DB_DATABASE:-laravel}
+            POSTGRES_USER: ${DB_USERNAME:-username}
+            POSTGRES_PASSWORD: ${DB_PASSWORD:-userpass}
+        volumes:
+            - ./.docker/postgresql/dbdata:/var/lib/postgresql/data
+        ports:
+            - "5432:5432"
+        networks:
+            - laravel
+
+    # Adminer (substituto para o PHPMyAdmin)
+    adminer:
+        image: adminer
+        restart: unless-stopped
+        ports:
+            - "8080:8080"
+        environment:
+            ADMINER_DEFAULT_SERVER: db
+        networks:
+            - laravel
+
+    # Frontend Vue.js
+    frontend:
+        build:
+            context: ./frontend
+            dockerfile: Dockerfile
+        restart: unless-stopped
+        working_dir: /frontend
+        volumes:
+            - ./frontend/:/frontend
+        ports:
+            - "3000:3000"
+        networks:
+            - laravel
+        environment:
+            - VUE_APP_BACKEND_URL=http://localhost:8989
+
+networks:
+    laravel:
+        driver: bridge
