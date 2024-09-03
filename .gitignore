@@ -1,0 +1,64 @@
+# Ignorar arquivos e diretórios relacionados ao PHPUnit
+backend/laravel/.phpunit.cache
+backend/laravel/.phpunit.result.cache
+
+# Ignorar dependências de Node.js
+backend/laravel/node_modules
+
+# Ignorar arquivos gerados por ferramentas de build
+backend/laravel/public/build
+backend/laravel/public/hot
+
+# Ignorar o diretório de storage público
+backend/laravel/public/storage
+
+# Ignorar chaves de criptografia
+backend/laravel/storage/*.key
+
+# Ignorar dependências do Composer
+backend/laravel/vendor
+
+# Ignorar arquivos de ambiente
+backend/laravel/.env
+backend/laravel/.env.backup
+backend/laravel/.env.production
+
+# Ignorar configurações e caches do editor
+backend/laravel/.phpactor.json
+backend/laravel/Homestead.json
+backend/laravel/Homestead.yaml
+backend/laravel/auth.json
+backend/laravel/npm-debug.log
+backend/laravel/yarn-error.log
+
+# Ignorar configurações específicas de IDEs
+backend/laravel/.fleet
+backend/laravel/.idea
+backend/laravel/.vscode
+
+# Ignorar diretório Docker
+.docker
+
+
+frontend/.DS_Store
+frontend/node_modules
+frontend//distfrontend/
+frontend/# local env files
+frontend/.env.local
+frontend/.env.*.localfrontend/
+frontend/# Log files
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/pnpm-debug.log*frontend/
+frontend/# Editor directories and files
+frontend/.idea
+frontend/.vscode
+frontend/*.suo
+frontend/*.ntvs*
+frontend/*.njsproj
+frontend/*.sln
+frontend/*.sw?
+frontend/node_modules
+frontend/package-lock.json
+
