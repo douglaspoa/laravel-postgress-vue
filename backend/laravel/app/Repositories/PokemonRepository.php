@@ -30,16 +30,16 @@ class PokemonRepository
         }
     }
 
-    public function getAll ($filter = null) 
+    public function getAll($filter = null, $perPage = 15) 
     {
         $query = Pokemon::query();
-        
 
         if ($filter) { 
-            $query->where('name', 'like', "%$filter%")->orWhere('type', 'like', "%$filter");
+            $query->where('name', 'like', "%$filter%")
+                  ->orWhere('type', 'like', "%$filter%");
         }
 
-        return $query->get();
+        return $query->paginate($perPage);
     }
 
     public function getById ($id)

@@ -27,6 +27,6 @@ class PokemonController extends Controller
 
     public function show($id)
     {
-        return response()->json($this->pokemonService.getPokemonDetails($id));
+        return response()->json($this->pokemonService->getPokemonDetails($id));
     }
 }
