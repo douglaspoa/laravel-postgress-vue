@@ -48,22 +48,6 @@ services:
         networks:
             - laravel
 
-    # Frontend Vue.js
-    frontend:
-        build:
-            context: ./frontend
-            dockerfile: Dockerfile
-        restart: unless-stopped
-        working_dir: /frontend
-        volumes:
-            - ./frontend/:/frontend
-        ports:
-            - "3000:3000"
-        networks:
-            - laravel
-        environment:
-            - VUE_APP_BACKEND_URL=http://localhost:8000 # Apontando para o backend no Laravel
-
 networks:
     laravel:
         driver: bridge

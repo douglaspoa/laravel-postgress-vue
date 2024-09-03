@@ -1,49 +1,60 @@
-Requisitos
-Docker
-Docker Compose
 
-bash
+
+
+
+## Pokémon Web Application
+Pré-requisitos
+Docker e Docker Compose instalados
+Node.js e npm instalados para rodar o frontend sem Docker
+Comandos Docker
+## 1. Build e subir os containers
+Execute o comando abaixo na raiz do projeto para construir as imagens Docker e subir os containers:
+
+
+```bash
+docker-compose up --build
+```
+## 2. Parar os containers
+Para parar e remover os containers, execute:
+
+```bash
+docker-compose down
+```
+## 3. Reconstruir um serviço específico
+Se precisar reconstruir um serviço específico (por exemplo, o app), use:
+
 Copiar código
-docker-compose up -d --build
-Instale as dependências do Laravel:
+```bash
+docker-compose up --build app
+```
+## 4. Acessar o container do backend (Laravel)
+Se precisar acessar o container do backend para executar comandos Artisan, use:
 
-Execute o seguinte comando para acessar o contêiner do Laravel e instalar as dependências:
-
-bash
 Copiar código
-docker exec -it laravel-app-1 sh
-composer install
-Gere a chave da aplicação Laravel:
+```bash
+docker-compose exec app bash
+```
+Rodando o Frontend sem Docker
+## 1. Instalar dependências
+Na pasta frontend, instale as dependências necessárias com npm:
 
-Ainda dentro do contêiner do Laravel, execute:
-
-bash
-Copiar código
-php artisan key:generate
-Execute as migrações:
-
-Ainda no contêiner do Laravel, execute:
-
-bash
-Copiar código
-php artisan migrate
-Instale as dependências do Vue.js:
-
-Execute o seguinte comando para acessar o contêiner do frontend e instalar as dependências:
-
-bash
-Copiar código
-docker exec -it frontend sh
+```bash
+cd frontend
 npm install
-Compile os assets do Vue.js:
+```
+## 2. Rodar o frontend em modo de desenvolvimento
+Para rodar o frontend com hot-reload e desenvolvimento, use:
 
-No contêiner do frontend, execute:
+```bash
+npm run serve
+```
+O frontend estará disponível em http://localhost:3000.
 
-bash
-Copiar código
+## 3. Build para produção
+Se quiser fazer o build para produção (gerando os arquivos otimizados), use:
+
+```bash
 npm run build
-Acesse a aplicação:
+```
+Os arquivos de build serão gerados na pasta dist.
 
-Backend Laravel: http://localhost:8989
-Frontend Vue.js: http://localhost:3000
-Adminer (para gerenciar o banco de dados): http://localhost:8080
