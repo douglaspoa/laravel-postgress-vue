@@ -10,6 +10,7 @@ services:
         working_dir: /var/www/
         volumes:
             - ./backend/laravel/:/var/www
+            - /var/www/vendor
         ports:
             - "8000:8000" # Servindo diretamente na porta 8000
         networks:
@@ -21,7 +22,6 @@ services:
             DB_DATABASE: ${DB_DATABASE:-laravel}
             DB_USERNAME: ${DB_USERNAME:-username}
             DB_PASSWORD: ${DB_PASSWORD:-userpass}
-        command: sh -c "composer install"
 
     # db postgresql
     db:
