@@ -18,7 +18,7 @@ class CreatePokemonsTable extends Migration
             $table->string('name')->unique();
             $table->string('type');
             $table->integer('height_cm');
-            $table->integer('weight_kg');
+            $table->float('weight_kg');
             $table->timestamps();
         });
     }
