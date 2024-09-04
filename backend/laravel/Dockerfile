@@ -1,6 +1,6 @@
 FROM php:8.3-fpm
 
-# set your user name, ex: user=carlos
+# Set your user name, ex: user=carlos
 ARG user=dodos
 ARG uid=1000
 
@@ -32,12 +32,16 @@ RUN mkdir -p /home/$user/.composer && \
 # Set working directory
 WORKDIR /var/www
 
-# # Copy custom configurations PHP
-# COPY docker/php/custom.ini /usr/local/etc/php/conf.d/custom.ini
+# Copiar os arquivos do projeto para o container
+COPY . /var/www
 
-USER $user
+# Instalar dependências do Composer
+RUN composer install --no-dev --optimize-autoloader
 
-# Expõe a porta 8000
+# Ajustar permissões de diretórios necessários
+RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
+
+# Expor a porta 8000
 EXPOSE 8000
 
 # Comando para iniciar o servidor Laravel

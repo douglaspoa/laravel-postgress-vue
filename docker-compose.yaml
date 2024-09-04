@@ -21,6 +21,7 @@ services:
             DB_DATABASE: ${DB_DATABASE:-laravel}
             DB_USERNAME: ${DB_USERNAME:-username}
             DB_PASSWORD: ${DB_PASSWORD:-userpass}
+        command: sh -c "composer install"
 
     # db postgresql
     db:
